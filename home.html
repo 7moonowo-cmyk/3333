@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171533">
+  <title>首頁｜咔咔咯噠-999號外星基地</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: "Trebuchet MS", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      background: #171533;
+      color: #fff9e9;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      --ink: #171533;
+      --cream: #fff9e9;
+      --yellow: #ffe66d;
+      --pink: #ff829b;
+      --mint: #91f3d0;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { overflow-x: hidden; }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background:
+        radial-gradient(ellipse at 82% 74%, #39345d 0, transparent 42%),
+        radial-gradient(ellipse at 16% 28%, #31284d 0, transparent 34%),
+        #171533;
+    }
+
+    .page {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      isolation: isolate;
+      min-height: 100svh;
+      overflow: visible;
+    }
+
+    .page::before {
+      position: absolute;
+      z-index: -1;
+      inset: 14px;
+      border: 1px solid rgb(255 249 233 / 12%);
+      border-radius: 26px;
+      content: "";
+      pointer-events: none;
+    }
+
+    .topbar {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 32px clamp(30px, 6vw, 92px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--cream);
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      background: var(--yellow);
+      box-shadow: 2px 3px 0 var(--cream);
+      color: var(--ink);
+      font-size: 21px;
+      transform: rotate(-12deg);
+    }
+
+    .top-note {
+      padding: 9px 16px;
+      border: 1px solid rgb(255 249 233 / 35%);
+      border-radius: 999px;
+      color: #e8e4f2;
+      font-size: 20px;
+      letter-spacing: .08em;
+    }
+
+    .hero {
+      position: relative;
+      display: flex;
+      flex: 1 0 auto;
+      min-height: 0;
+      align-items: center;
+      padding: 20px clamp(30px, 9.2vw, 142px) 94px;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+      width: min(590px, 48vw);
+      margin-top: -50px;
+      transition: opacity .25s ease, transform .4s ease, visibility .25s ease;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      color: var(--mint);
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: .13em;
+    }
+
+    .eyebrow::before {
+      width: 30px;
+      height: 3px;
+      background: var(--mint);
+      content: "";
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(58px, 7vw, 96px);
+      font-weight: 1000;
+      letter-spacing: -.075em;
+      line-height: 1.05;
+      text-shadow: 4px 5px 0 rgb(0 0 0 / 15%);
+    }
+
+    h1 span {
+      display: block;
+      color: var(--yellow);
+      -webkit-text-stroke: 1px var(--yellow);
+      text-shadow: 3px 4px 0 #ec7190;
+      transform: rotate(-2deg);
+      transform-origin: left center;
+    }
+
+    .intro {
+      max-width: 480px;
+      margin: 28px 0 0;
+      color: #d3d0e2;
+      font-size: 24px;
+      line-height: 1.85;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 25px;
+    }
+
+    .action-button {
+      display: inline-flex;
+      min-height: 62px;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 23px;
+      border: 2px solid var(--ink);
+      border-radius: 18px 22px 17px 21px;
+      box-shadow: 4px 5px 0 var(--cream), 6px 7px 0 var(--ink);
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+      font-size: 22px;
+      font-weight: 1000;
+      text-decoration: none;
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+
+    .action-button:hover {
+      box-shadow: 2px 3px 0 var(--cream), 4px 5px 0 var(--ink);
+      filter: brightness(1.06);
+      transform: translate(2px, 2px) rotate(-1deg);
+    }
+
+    .action-button:focus-visible {
+      outline: 3px solid var(--mint);
+      outline-offset: 7px;
+    }
+
+    .action-button.greet { background: var(--mint); }
+
+    .action-status {
+      margin: 19px 0 0;
+      color: var(--mint);
+      font-size: 19px;
+      font-weight: 800;
+      line-height: 1.55;
+    }
+
+    .action-status:empty { display: none; }
+
+    .ground-note {
+      position: absolute;
+      z-index: 2;
+      left: clamp(34px, 7vw, 102px);
+      bottom: 38px;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      color: #d3d0e2;
+      font-size: 18px;
+      letter-spacing: .08em;
+      transition: opacity .25s ease;
+    }
+
+    .ground-note b {
+      color: var(--yellow);
+      font-size: 24px;
+      letter-spacing: .02em;
+    }
+
+    .ground-note span:last-child {
+      color: var(--mint);
+      font-size: 23px;
+    }
+
+    .scene {
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .chicken { transition: filter .3s ease; }
+    .chicken.is-walking image {
+      animation: chicken-step .34s ease-in-out infinite alternate;
+      transform-box: fill-box;
+      transform-origin: 50% 90%;
+    }
+
+    @keyframes chicken-step {
+      from { transform: translateY(0) rotate(-1deg); }
+      to { transform: translateY(-4px) rotate(1deg); }
+    }
+
+    .is-greeting .chicken { filter: drop-shadow(0 0 10px rgb(145 243 208 / 85%)); }
+
+    .page.is-greeting .scene {
+      transform: scale(1.2);
+      transform-origin: 78% 72%;
+    }
+
+    .page.is-greeting .hero-copy {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+      visibility: hidden;
+    }
+
+    .page.is-greeting .ground-note { opacity: 0; }
+    .page.is-greeting .top-note { opacity: 0; }
+
+    .chicken-dialogue {
+      position: fixed;
+      z-index: 5;
+      top: clamp(58px, 9vh, 88px);
+      left: 50%;
+      width: min(680px, calc(100% - 36px));
+      padding: clamp(19px, 3vw, 30px);
+      border: 2px solid rgb(145 243 208 / 80%);
+      border-radius: 24px;
+      background: rgb(23 21 51 / 94%);
+      box-shadow: 0 12px 40px rgb(0 0 0 / 35%), 5px 6px 0 rgb(255 249 233 / 75%);
+      color: var(--cream);
+      transform: translateX(-50%);
+      backdrop-filter: blur(12px);
+      animation: dialogue-appear .35s ease-out both;
+    }
+
+    .chicken-dialogue[hidden] { display: none; }
+
+    .chicken-dialogue::before {
+      position: absolute;
+      bottom: -11px;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      border-top: 0;
+      border-left: 0;
+      border-right: 2px solid var(--mint);
+      border-bottom: 2px solid var(--mint);
+      content: "";
+      transform: translateX(-50%) rotate(45deg);
+    }
+
+    .dialogue-speaker {
+      margin: 0 0 7px;
+      color: var(--mint);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .14em;
+    }
+
+    .dialogue-line {
+      min-height: 1.5em;
+      margin: 0;
+      font-size: clamp(21px, 3.5vw, 29px);
+      font-weight: 900;
+      line-height: 1.45;
+    }
+
+    .dialogue-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 19px;
+    }
+
+    .dialogue-options[hidden],
+    .dialogue-next[hidden] { display: none; }
+
+    .dialogue-option {
+      flex: 1 1 210px;
+      min-height: 48px;
+      padding: 9px 16px;
+      border: 2px solid var(--mint);
+      border-radius: 14px;
+      background: #373453;
+      color: var(--cream);
+      cursor: pointer;
+      font: inherit;
+      font-size: 17px;
+      font-weight: 800;
+      transition: background .18s ease, transform .18s ease;
+    }
+
+    .dialogue-followup { flex-basis: 100%; }
+
+    .dialogue-option:hover {
+      background: #4a466b;
+      transform: translateY(-2px);
+    }
+
+    .dialogue-option:focus-visible {
+      outline: 3px solid var(--yellow);
+      outline-offset: 3px;
+    }
+
+    .dialogue-next {
+      display: block;
+      width: 100%;
+      margin-top: 13px;
+      border-color: var(--yellow);
+      background: #4a466b;
+    }
+
+    @keyframes dialogue-appear {
+      from { opacity: 0; translate: 0 12px; }
+      to { opacity: 1; translate: 0 0; }
+    }
+
+    @media (forced-colors: active) {
+      .topbar, .hero-copy, .ground-note { forced-color-adjust: none; }
+    }
+
+    @media (min-width: 761px) and (max-height: 760px) {
+      .topbar { padding-block: 20px; }
+      .hero {
+        align-items: flex-start;
+        padding-top: 8px;
+        padding-bottom: 30px;
+      }
+      .hero-copy { width: min(560px, 47vw); margin-top: 0; }
+      .eyebrow { margin-bottom: 12px; font-size: 18px; }
+      h1 { font-size: clamp(50px, 6.2vw, 72px); }
+      .intro { margin-top: 18px; font-size: 20px; line-height: 1.55; }
+      .actions { gap: 12px; margin-top: 18px; }
+      .action-button { min-height: 54px; padding-inline: 18px; font-size: 19px; }
+    }
+
+    @media (max-width: 760px) {
+      .page { height: auto; min-height: 100svh; }
+      .page::before { inset: 8px; border-radius: 19px; }
+      .topbar { padding: 24px 26px; }
+      .brand { font-size: 18px; }
+      .brand-mark { width: 33px; height: 33px; font-size: 18px; }
+      .top-note { padding: 8px 11px; font-size: 16px; }
+      .hero {
+        flex: none;
+        min-height: calc(100svh - 82px);
+        align-items: flex-start;
+        padding: 35px 30px 350px;
+      }
+      .hero-copy { width: 100%; margin-top: 0; }
+      h1 { font-size: clamp(54px, 13vw, 78px); }
+      .eyebrow { font-size: 17px; letter-spacing: .1em; }
+      .intro { max-width: 330px; margin-top: 20px; font-size: 20px; }
+      .actions { gap: 12px; margin-top: 22px; }
+      .action-button { min-height: 58px; gap: 9px; padding-inline: 17px; font-size: 20px; }
+      .action-status { margin-top: 15px; font-size: 17px; }
+      .scene {
+        top: auto;
+        bottom: -3%;
+        left: -45%;
+        width: 190%;
+        height: 59%;
+      }
+      .ground-note { display: none; }
+    }
+
+    @media (max-width: 420px) {
+      .topbar { padding-inline: 21px; }
+      .hero { padding-inline: 25px; }
+      .top-note { letter-spacing: 0; }
+      .scene { left: -86%; width: 210%; height: 57%; }
+    }
+
+    @media (max-width: 760px) {
+      .page.is-greeting .scene {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform: scale(1.25);
+        transform-origin: 78% 72%;
+      }
+
+      .chicken-dialogue {
+        top: 64px;
+        width: calc(100% - 28px);
+        border-radius: 19px;
+      }
+
+      .dialogue-options { gap: 9px; margin-top: 14px; }
+      .dialogue-option { flex-basis: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <a class="brand" href="./home.html" aria-label="回首頁">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        <span>回首頁</span>
+      </a>
+      <span class="top-note">✷　基地探索中　✷</span>
+    </header>
+
+    <section class="hero" aria-labelledby="home-title">
+      <div class="hero-copy">
+        <div class="eyebrow">SECTOR 999　／　地表基地</div>
+        <h1 id="home-title">抵達成功！<span>歡迎來作客</span></h1>
+        <p class="intro">這裡就是咔咔咯噠-999號外星基地，快來跟機械外星雞打聲招呼！</p>
+        <div class="actions">
+          <button class="action-button greet" id="greet-button" type="button" aria-controls="chicken-dialogue" aria-expanded="false">
+            <span>嗨，雞！</span>
+            <span aria-hidden="true">✦</span>
+          </button>
+        </div>
+      </div>
+
+      <svg class="scene" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" role="img" aria-labelledby="home-scene-title home-scene-description">
+        <title id="home-scene-title">咔咔咯噠-999號外星基地地表</title>
+        <desc id="home-scene-description">卡通機械風格的外星基地，有鐵皮拼接地板、管線、螺栓，和三隻可愛的機械外星雞。</desc>
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop stop-color="#292444"/>
+            <stop offset="1" stop-color="#625174"/>
+          </linearGradient>
+          <linearGradient id="metal-floor" x1="0" y1="0" x2=".2" y2="1">
+            <stop stop-color="#8c9baa"/>
+            <stop offset=".18" stop-color="#64798b"/>
+            <stop offset="1" stop-color="#39495c"/>
+          </linearGradient>
+          <linearGradient id="plate-light" x1="0" y1="0" x2="1" y2="1">
+            <stop stop-color="#b0bdc4"/>
+            <stop offset="1" stop-color="#687d8d"/>
+          </linearGradient>
+          <g id="mechanical-chicken" stroke="#171533" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M-66 16c-34-4-48 12-55 32 22 2 38-4 54-18" fill="none" stroke="#171533" stroke-width="14"/>
+            <path d="M-67 15c-34-4-48 12-55 32 22 2 38-4 54-18" fill="none" stroke="var(--wing)" stroke-width="9"/>
+            <path d="M-39-87v-27" fill="none" stroke="#171533" stroke-width="10"/>
+            <path d="M-39-88v-25" fill="none" stroke="#91f3d0" stroke-width="5"/>
+            <circle cx="-39" cy="-123" r="11" fill="#ffe66d" stroke-width="5"/>
+            <ellipse cx="0" cy="12" rx="72" ry="81" fill="var(--feathers)" stroke-width="11"/>
+            <circle cx="10" cy="-47" r="52" fill="var(--feathers)" stroke-width="11"/>
+            <path d="M-62 5q24-28 47-3v38q-25 8-47-10z" fill="var(--wing)" stroke-width="7"/>
+            <path d="M-52 13q16-10 27-1m-23 13q11-6 19-1" fill="none" stroke="#171533" stroke-width="4"/>
+            <path d="M-25-91c-19-24-9-41 4-49 14 12 18 24 13 40 14-29 34-28 47-17-2 19-16 30-42 33" fill="#ff829b" stroke-width="9"/>
+            <path d="m55-55 49 15-49 20q-15-16 0-35z" fill="#ff9d67" stroke-width="8"/>
+            <circle cx="70" cy="-40" r="5" fill="#ffe66d" stroke-width="3"/>
+            <ellipse cx="22" cy="-58" rx="17" ry="21" fill="#fff9e9" stroke-width="7"/>
+            <ellipse cx="22" cy="-58" rx="25" ry="29" fill="none" stroke="#91f3d0" stroke-width="5"/>
+            <ellipse cx="27" cy="-57" rx="6" ry="10" fill="#171533" stroke="none"/>
+            <path d="M-17 2q34 23 68 0v57h-68z" fill="#fff9e9" stroke-width="8"/>
+            <path d="M-8 9v49m16-50v50" fill="none" stroke="#64798b" stroke-width="4"/>
+            <rect x="-16" y="17" width="32" height="25" rx="8" fill="#91f3d0" stroke-width="6"/>
+            <circle cx="-6" cy="29" r="4" fill="#171533" stroke="none"/>
+            <circle cx="7" cy="29" r="4" fill="#ff829b" stroke="none"/>
+            <path d="m-23 77 9 7 8-7m24 0 9 7 8-7" fill="none" stroke="#64798b" stroke-width="5"/>
+            <path d="M-22 87v32m44-32v32m-44 0-18 10h34m28-10 18 10H6" fill="none" stroke="#ffe66d" stroke-width="9"/>
+            <circle cx="-22" cy="101" r="6" fill="#91f3d0" stroke-width="3"/>
+            <circle cx="22" cy="101" r="6" fill="#91f3d0" stroke-width="3"/>
+            <path d="m-80 32 6-8 9 2 6-7 8 6 9-1 3 9 8 5-4 9 1 9-9 4-2 9-9-2-6 6-8-6-9 1-3-9-8-5 4-9-1-9z" fill="#91f3d0" stroke-width="6"/>
+            <circle cx="-64" cy="48" r="9" fill="#171533" stroke-width="4"/>
+            <circle cx="-50" cy="-20" r="8" fill="#91f3d0" stroke-width="5"/>
+            <circle cx="55" cy="24" r="8" fill="#ff829b" stroke-width="5"/>
+          </g>
+        </defs>
+
+        <path d="M0 0h1440v616q-360-57-720 0T0 616z" fill="url(#sky)"/>
+        <g fill="#ffe66d">
+          <path d="m275 154 6 16 16 6-16 6-6 16-6-16-16-6 16-6z"/>
+          <path d="m1158 122 5 13 13 5-13 5-5 13-5-13-13-5 13-5z"/>
+          <path d="m1340 286 4 11 11 4-11 4-4 11-4-11-11-4 11-4z"/>
+        </g>
+        <g fill="none" stroke="#fff9e9" stroke-linecap="round" stroke-width="3">
+          <path d="M491 152v18m-9-9h18"/><path d="M1010 250v16m-8-8h16"/>
+          <path d="M1240 180v14m-7-7h14"/><path d="M380 294v14m-7-7h14"/>
+        </g>
+        <g fill="#91f3d0">
+          <circle cx="630" cy="182" r="4"/><circle cx="905" cy="139" r="3"/>
+          <circle cx="1100" cy="296" r="4"/><circle cx="196" cy="250" r="3"/>
+          <circle cx="1370" cy="358" r="3"/>
+        </g>
+
+        <!-- faraway base machinery -->
+        <path d="M870 611V435q0-29 29-29h118q29 0 29 29v154m51 16V479q0-22 22-22h77q22 0 22 22v141" fill="#35344d" stroke="#171533" stroke-linejoin="round" stroke-width="12"/>
+        <path d="M895 596V447h72v149m153-8V489h52v99" fill="none" stroke="#91f3d0" stroke-linecap="round" stroke-width="8"/>
+        <path d="M845 522h-73v70m520-111 58-43h43v63" fill="none" stroke="#ff829b" stroke-linecap="round" stroke-width="11"/>
+        <circle cx="930" cy="465" r="12" fill="#ffe66d" stroke="#171533" stroke-width="7"/>
+        <circle cx="1150" cy="515" r="10" fill="#ffe66d" stroke="#171533" stroke-width="6"/>
+
+        <!-- bolted metal ground -->
+        <path d="M0 615q360-53 720 0t720 0v285H0z" fill="url(#metal-floor)" stroke="#171533" stroke-width="12"/>
+        <path d="M0 657q360-45 720 0t720 0M0 720q360-42 720 0t720 0M0 800q360-36 720 0t720 0M0 873q360-28 720 0t720 0" fill="none" stroke="#27374a" stroke-width="8"/>
+        <path d="M170 596 70 900m250-322 8 322m270-308 97 308m225-307 177 307m116-306 255 306m-60-305 258 305" fill="none" stroke="#314256" stroke-width="8"/>
+        <path d="M0 624q360-53 720 0t720 0" fill="none" stroke="#c3cdd0" stroke-linecap="round" stroke-width="8"/>
+        <g fill="url(#plate-light)" stroke="#27374a" stroke-width="5">
+          <path d="M46 670q102-18 208-17l-15 58q-100-4-202 13z"/>
+          <path d="M300 642q118-4 235 9l8 58q-121-12-242-9z"/>
+          <path d="M821 653q115-13 227-8l24 58q-118-6-235 11z"/>
+          <path d="M1110 663q120 5 254 26v59q-132-26-231-29z"/>
+        </g>
+        <g fill="#ffe66d" stroke="#171533" stroke-width="4">
+          <circle cx="59" cy="671" r="8"/><circle cx="241" cy="658" r="8"/>
+          <circle cx="320" cy="645" r="8"/><circle cx="515" cy="651" r="8"/>
+          <circle cx="846" cy="653" r="8"/><circle cx="1028" cy="649" r="8"/>
+          <circle cx="1140" cy="666" r="8"/><circle cx="1330" cy="687" r="8"/>
+          <circle cx="160" cy="771" r="8"/><circle cx="1240" cy="780" r="8"/>
+        </g>
+
+        <!-- three friendly chickens -->
+        <g class="chicken" id="chicken-gold"><image href="./黃雞側邊.png" data-greeting-src="./黃雞正面.png" width="220" height="220" preserveAspectRatio="xMidYMid meet"/></g>
+        <g class="chicken" id="chicken-mint"><image href="./綠雞側邊.png" data-greeting-src="./綠雞正面.png" width="220" height="220" preserveAspectRatio="xMidYMid meet"/></g>
+        <g class="chicken" id="chicken-pink"><image href="./紅雞側邊.png" data-greeting-src="./紅雞正面.png" width="220" height="220" preserveAspectRatio="xMidYMid meet"/></g>
+      </svg>
+
+      <div class="ground-note"><span>原住民</span><b>機械外星雞 × 3</b><span>✦</span></div>
+    </section>
+    <section class="chicken-dialogue" id="chicken-dialogue" aria-label="機械外星雞的對話" hidden>
+      <p class="dialogue-speaker">機械外星雞</p>
+      <p class="dialogue-line" id="chicken-dialogue-line" aria-live="polite">你好咕！地球人</p>
+      <div class="dialogue-options" id="dialogue-options">
+        <button class="dialogue-option" id="learn-chicken" type="button">了解雞</button>
+        <button class="dialogue-option" id="ask-about-earth" type="button">你認識我？</button>
+        <button class="dialogue-option dialogue-followup" id="ask-about-gray" type="button" hidden>小灰去地球？</button>
+      </div>
+      <button class="dialogue-option dialogue-next" id="dialogue-next" type="button" hidden>點擊繼續</button>
+    </section>
+  </main>
+  <script>
+    const page = document.querySelector(".page");
+    const greetButton = document.getElementById("greet-button");
+    const dialogue = document.getElementById("chicken-dialogue");
+    const dialogueLine = document.getElementById("chicken-dialogue-line");
+    const dialogueOptions = document.getElementById("dialogue-options");
+    const dialogueNext = document.getElementById("dialogue-next");
+    const completedOptions = new Set();
+    const chickenStory = [
+      "你想了解我們嗎?沒問題!",
+      "我們是外星雞，是咔咔咯噠-999號外星基地的特有生物，",
+      "我們全身都是機械做的喔，和你們地球碳\"雞\"生物不一樣，",
+      "我們最喜歡喝特級柴油了，也最喜歡吃宇宙飼料補充能量"
+    ];
+    const earthStory = [
+      "對呀，我們知道地球。",
+      "我們的同伴小灰之前出發去地球了。",
+      "如果你在地球看到一隻灰色的外星雞，可以和他聊天。"
+    ];
+    const grayStory = ["沒錯！我們的同伴小灰之前出發去地球了。"];
+    let activeSequence = [];
+    let sequenceIndex = 0;
+    let activeOption = null;
+
+    greetButton.addEventListener("click", () => {
+      page.classList.add("is-greeting");
+      page.querySelectorAll(".chicken image").forEach((image) => {
+        image.setAttribute("href", image.dataset.greetingSrc);
+      });
+      greetButton.setAttribute("aria-expanded", "true");
+      dialogue.hidden = false;
+      dialogue.querySelector(".dialogue-option").focus({ preventScroll: true });
+    });
+
+    function startDialogueSequence(lines, optionId) {
+      activeSequence = lines;
+      activeOption = optionId;
+      sequenceIndex = 1;
+      dialogueOptions.hidden = true;
+      dialogueNext.hidden = false;
+      dialogueLine.textContent = lines[0];
+
+      dialogueNext.textContent = sequenceIndex < activeSequence.length
+        ? "點擊繼續"
+        : optionId === "ask-about-gray" ? "查看小灰的故事" : "回到選項";
+      dialogueNext.focus({ preventScroll: true });
+    }
+
+    document.getElementById("learn-chicken").addEventListener("click", () => {
+      startDialogueSequence(chickenStory, "learn-chicken");
+    });
+
+    document.getElementById("ask-about-earth").addEventListener("click", () => {
+      startDialogueSequence(earthStory, "ask-about-earth");
+    });
+
+    document.getElementById("ask-about-gray").addEventListener("click", () => {
+      startDialogueSequence(grayStory, "ask-about-gray");
+    });
+
+    dialogueNext.addEventListener("click", () => {
+      if (sequenceIndex < activeSequence.length) {
+        dialogueLine.textContent = activeSequence[sequenceIndex];
+        sequenceIndex += 1;
+        dialogueNext.textContent = sequenceIndex < activeSequence.length
+          ? "點擊繼續"
+          : activeOption === "ask-about-gray" ? "查看小灰的故事" : "回到選項";
+        return;
+      }
+
+      if (activeOption === "ask-about-gray") {
+        window.location.href = "./sneak-gray.html";
+        return;
+      }
+
+      if (activeOption === "learn-chicken" || activeOption === "ask-about-earth") {
+        completedOptions.add(activeOption);
+      }
+      if (completedOptions.size === 2) {
+        document.getElementById("ask-about-gray").hidden = false;
+      }
+      activeSequence = [];
+      activeOption = null;
+      sequenceIndex = 0;
+      dialogueLine.textContent = "還想聊些什麼？";
+      dialogueOptions.hidden = false;
+      dialogueNext.hidden = true;
+      dialogueOptions.querySelector("button").focus({ preventScroll: true });
+    });
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const chickens = [
+      { element: document.getElementById("chicken-gold"), x: 620, y: 585, size: 220, min: 550, max: 800, direction: 1 },
+      { element: document.getElementById("chicken-mint"), x: 820, y: 565, size: 220, min: 790, max: 1030, direction: -1 },
+      { element: document.getElementById("chicken-pink"), x: 1050, y: 595, size: 220, min: 1020, max: 1260, direction: 1 }
+    ];
+
+    function placeChicken(chicken) {
+      const offset = chicken.direction < 0 ? chicken.size : 0;
+      chicken.element.setAttribute("transform", `translate(${chicken.x + offset} ${chicken.y}) scale(${chicken.direction} 1)`);
+    }
+
+    function scheduleWalk(chicken, delay) {
+      window.setTimeout(() => {
+        chicken.direction = Math.random() < 0.4 ? -chicken.direction : chicken.direction;
+        const distance = 55 + Math.random() * 105;
+        let target = chicken.x + chicken.direction * distance;
+        if (target < chicken.min || target > chicken.max) {
+          chicken.direction *= -1;
+          target = Math.max(chicken.min, Math.min(chicken.max, chicken.x + chicken.direction * distance));
+        }
+        placeChicken(chicken);
+        chicken.element.classList.add("is-walking");
+
+        const startX = chicken.x;
+        const duration = Math.abs(target - startX) / (28 + Math.random() * 16) * 1000;
+        let startedAt;
+        function walk(timestamp) {
+          if (page.classList.contains("is-greeting")) {
+            chicken.element.classList.remove("is-walking");
+            return;
+          }
+          if (startedAt === undefined) startedAt = timestamp;
+          const progress = Math.min(1, (timestamp - startedAt) / duration);
+          chicken.x = startX + (target - startX) * progress;
+          placeChicken(chicken);
+          if (progress < 1) {
+            window.requestAnimationFrame(walk);
+          } else {
+            chicken.element.classList.remove("is-walking");
+            scheduleWalk(chicken, 800 + Math.random() * 2200);
+          }
+        }
+
+        window.requestAnimationFrame(walk);
+      }, delay);
+    }
+
+    chickens.forEach((chicken, index) => {
+      placeChicken(chicken);
+      if (!reducedMotion.matches) scheduleWalk(chicken, 500 + index * 650);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171533">
+  <title>星際塗鴉｜出發頁面</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: "Trebuchet MS", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      background: #171533;
+      color: #fff9e9;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      --ink: #171533;
+      --cream: #fff9e9;
+      --yellow: #ffe66d;
+      --pink: #ff829b;
+      --mint: #91f3d0;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      min-height: 100vh;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 75% 65%, #39345d 0, transparent 40%),
+        radial-gradient(ellipse at 13% 88%, #34294e 0, transparent 32%),
+        #171533;
+    }
+
+    .page {
+      position: relative;
+      isolation: isolate;
+      min-height: 100svh;
+      overflow: hidden;
+    }
+
+    .page::before {
+      position: absolute;
+      z-index: -1;
+      inset: 14px;
+      border: 1px solid rgb(255 249 233 / 12%);
+      border-radius: 26px;
+      content: "";
+      pointer-events: none;
+    }
+
+    .topbar {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 32px clamp(30px, 6vw, 92px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--cream);
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      background: var(--yellow);
+      box-shadow: 2px 3px 0 var(--cream);
+      color: var(--ink);
+      font-size: 21px;
+      transform: rotate(-12deg);
+    }
+
+    .top-note {
+      padding: 9px 16px;
+      border: 1px solid rgb(255 249 233 / 35%);
+      border-radius: 999px;
+      color: #e8e4f2;
+      font-size: 20px;
+      letter-spacing: .08em;
+    }
+
+    .hero {
+      position: relative;
+      display: flex;
+      min-height: calc(100svh - 104px);
+      align-items: center;
+      padding: 20px clamp(30px, 9.2vw, 142px) 94px;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+      width: min(475px, 44vw);
+      margin-top: -22px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 19px;
+      color: var(--mint);
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: .2em;
+    }
+
+    .eyebrow::before {
+      width: 26px;
+      height: 2px;
+      background: var(--mint);
+      content: "";
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(54px, 7.3vw, 102px);
+      font-weight: 1000;
+      letter-spacing: -.075em;
+      line-height: .99;
+      text-shadow: 4px 5px 0 rgb(0 0 0 / 15%);
+    }
+
+    h1 span {
+      display: block;
+      color: var(--yellow);
+      -webkit-text-stroke: 1px var(--yellow);
+      text-shadow: 3px 4px 0 #ec7190;
+      transform: rotate(-2deg);
+      transform-origin: left center;
+    }
+
+    .intro {
+      max-width: 340px;
+      margin: 25px 0 27px;
+      color: #d3d0e2;
+      font-size: 24px;
+      line-height: 1.9;
+    }
+
+    .launch-button {
+      display: inline-flex;
+      min-height: 64px;
+      align-items: center;
+      gap: 14px;
+      padding: 0 23px 0 27px;
+      border: 2px solid var(--ink);
+      border-radius: 18px 22px 17px 21px;
+      background: var(--yellow);
+      box-shadow: 4px 5px 0 var(--cream), 6px 7px 0 var(--ink);
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+      font-size: 26px;
+      font-weight: 1000;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .launch-button:hover {
+      background: #fff08e;
+      box-shadow: 2px 3px 0 var(--cream), 4px 5px 0 var(--ink);
+      transform: translate(2px, 2px) rotate(-1deg);
+    }
+
+    .launch-button:focus-visible {
+      outline: 3px solid var(--mint);
+      outline-offset: 7px;
+    }
+
+    .button-icon {
+      display: grid;
+      width: 29px;
+      height: 29px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--pink);
+      font-size: 16px;
+      transition: transform .2s ease;
+    }
+
+    .launch-button:hover .button-icon { transform: translateX(3px); }
+
+    .flight-note {
+      position: absolute;
+      z-index: 2;
+      right: clamp(34px, 7vw, 102px);
+      bottom: 43px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #aaa6c1;
+      font-size: 18px;
+      letter-spacing: .12em;
+    }
+
+    .flight-note b {
+      color: var(--yellow);
+      font-size: 24px;
+      letter-spacing: .03em;
+    }
+
+    .scene {
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .planet { transform-origin: 1090px 492px; animation: planet-drift 7s ease-in-out infinite; }
+    .planet-spark { transform-origin: center; animation: twinkle 2.4s ease-in-out infinite alternate; }
+    .rocket { transform-origin: 563px 493px; transition: filter .3s ease; }
+    .rocket-flame { transform-origin: center top; animation: flame-flicker .16s ease-in-out infinite alternate; }
+    .orbit-dash { stroke-dasharray: 4 14; animation: dash 16s linear infinite; }
+
+    .is-launched .rocket {
+      animation: rocket-flight 3.2s cubic-bezier(.42, 0, .35, 1) forwards;
+      filter: drop-shadow(0 0 15px rgb(255 230 109 / 75%));
+    }
+
+    .is-launched .rocket-flame { animation-duration: .07s; }
+    .is-launched .launch-button { background: var(--mint); }
+
+    @keyframes planet-drift {
+      0%, 100% { transform: translateY(0) rotate(0); }
+      50% { transform: translateY(-9px) rotate(.6deg); }
+    }
+    @keyframes twinkle { from { opacity: .35; transform: scale(.8); } to { opacity: 1; transform: scale(1.15); } }
+    @keyframes flame-flicker { from { transform: scaleY(.85) rotate(-2deg); } to { transform: scaleY(1.12) rotate(2deg); } }
+    @keyframes dash { to { stroke-dashoffset: -180; } }
+    @keyframes rocket-flight {
+      0% { transform: translate(0, 0) rotate(0); }
+      15% { transform: translate(-10px, -70px); }
+      30% { transform: translate(-50px, -157px); }
+      45% { transform: translate(-97px, -215px) scale(.95); }
+      60% { transform: translate(-153px, -263px) scale(.9); }
+      80% { transform: translate(-255px, -377px) scale(.75); }
+      100% { transform: translate(-260px, -489px) scale(.45); }
+    }
+
+    @media (max-width: 760px) {
+      body { overflow: auto; }
+      .page { min-height: 100svh; }
+      .page::before { inset: 8px; border-radius: 19px; }
+      .topbar { padding: 24px 26px; }
+      .brand { font-size: 18px; }
+      .brand-mark { width: 33px; height: 33px; font-size: 18px; }
+      .top-note { padding: 8px 11px; font-size: 16px; }
+      .hero {
+        min-height: calc(100svh - 82px);
+        align-items: flex-start;
+        padding: 27px 30px 310px;
+      }
+      .hero-copy { width: 100%; margin-top: 0; }
+      h1 { font-size: clamp(56px, 14vw, 82px); }
+      .eyebrow { font-size: 18px; letter-spacing: .1em; }
+      .intro { max-width: 300px; margin: 18px 0 21px; font-size: 22px; }
+      .launch-button { min-height: 62px; font-size: 24px; }
+      .scene {
+        top: auto;
+        bottom: -3%;
+        left: -44%;
+        width: 150%;
+        height: 62%;
+      }
+      .flight-note { right: 20px; bottom: 24px; font-size: 16px; }
+      .flight-note b { font-size: 19px; }
+    }
+
+    @media (max-width: 390px) {
+      .topbar { padding-inline: 21px; }
+      .hero { padding-inline: 25px; }
+      .hero-copy { margin-left: -1px; }
+      .top-note { letter-spacing: 0; }
+      .scene { left: -55%; width: 165%; height: 59%; }
+    }
+
+    @media (forced-colors: active) {
+      .topbar, .hero-copy, .flight-note { forced-color-adjust: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page" id="page">
+    <header class="topbar">
+      <a class="brand" href="./home.html" aria-label="回首頁">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        <span>回首頁</span>
+      </a>
+      <span class="top-note">✷　出發中　✷</span>
+    </header>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="eyebrow">MISSION 001　／　未知星球</div>
+        <h1 id="hero-title">準備好<br><span>出發了嗎？</span></h1>
+        <p class="intro">搭上我們的塗鴉火箭，去拜訪宇宙裡最大、最酷的外星機械星球吧！</p>
+        <button class="launch-button" id="launch-button" type="button">
+          <span>出發</span>
+          <span class="button-icon" aria-hidden="true">➜</span>
+        </button>
+      </div>
+
+      <svg class="scene" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="scene-title scene-description">
+        <title id="scene-title">火箭飛向外星機械星球</title>
+        <desc id="scene-description">一艘可愛的塗鴉火箭正沿著星星點點的軌道，飛向戴著天線、擁有機械環的巨大紫色外星基地：咔咔咯噠-999號外星基地。</desc>
+        <defs>
+          <radialGradient id="planet-fill" cx="34%" cy="28%" r="80%">
+            <stop offset="0" stop-color="#ffb5a2"/>
+            <stop offset=".42" stop-color="#ed83a8"/>
+            <stop offset="1" stop-color="#9868bb"/>
+          </radialGradient>
+          <linearGradient id="ring-fill" x1="0" y1="0" x2="1" y2="1">
+            <stop stop-color="#ffe66d"/>
+            <stop offset="1" stop-color="#ff9e7c"/>
+          </linearGradient>
+          <filter id="soft-glow" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- scattered hand-drawn stars -->
+        <g fill="none" stroke="#fff4d4" stroke-linecap="round" stroke-width="3">
+          <path d="M715 154v20m-10-10h20"/><path d="M1060 117v15m-8-7h16"/>
+          <path d="M1318 244v22m-11-11h22"/><path d="M825 322v16m-8-8h16"/>
+          <path d="M1214 710v17m-8-8h16"/><path d="M941 732v12m-6-6h12"/>
+          <path d="M687 696v13m-7-6h14"/><path d="M1320 548v14m-7-7h14"/>
+        </g>
+        <g class="planet-spark" fill="#ffe66d">
+          <path d="m765 240 5 13 13 5-13 5-5 13-5-13-13-5 13-5z"/>
+          <path d="m970 191 4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/>
+          <path d="m1390 402 4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/>
+        </g>
+        <g fill="#91f3d0">
+          <circle cx="876" cy="214" r="3"/><circle cx="1284" cy="178" r="3"/>
+          <circle cx="735" cy="428" r="3"/><circle cx="900" cy="633" r="4"/>
+          <circle cx="1376" cy="664" r="3"/><circle cx="1003" cy="785" r="3"/>
+          <circle cx="1130" cy="142" r="2.5"/><circle cx="789" cy="582" r="2.5"/>
+        </g>
+
+        <!-- loose orbital trail -->
+        <path class="orbit-dash" d="M425 616C597 713 764 596 829 447c51-117 124-157 207-149" fill="none" stroke="#fff9e9" stroke-linecap="round" stroke-width="3" opacity=".58"/>
+        <path d="M695 337c16-16 33-18 49-9" fill="none" stroke="#ff829b" stroke-linecap="round" stroke-width="4"/>
+        <path d="m739 323 8 4-7 7" fill="none" stroke="#ff829b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+
+        <!-- oversized mechanical alien world -->
+        <g class="planet">
+          <ellipse cx="1095" cy="504" rx="300" ry="81" fill="none" stroke="#171533" stroke-width="31" transform="rotate(-17 1095 504)"/>
+          <ellipse cx="1095" cy="504" rx="300" ry="81" fill="none" stroke="url(#ring-fill)" stroke-width="21" transform="rotate(-17 1095 504)"/>
+          <path d="M845 604c-17-33-29-69-32-109" fill="none" stroke="#fff0bd" stroke-linecap="round" stroke-width="5"/>
+          <circle cx="1110" cy="478" r="231" fill="url(#planet-fill)" stroke="#171533" stroke-linejoin="round" stroke-width="12"/>
+          <path d="M956 317c48-35 111-47 169-33" fill="none" stroke="#ffd0b5" stroke-linecap="round" stroke-width="9"/>
+          <path d="M907 584c-18-29-31-65-34-101" fill="none" stroke="#c26eaa" stroke-linecap="round" stroke-width="11"/>
+          <!-- bolts -->
+          <g fill="#ffe66d" stroke="#171533" stroke-width="6">
+            <circle cx="951" cy="331" r="12"/><circle cx="1268" cy="410" r="12"/>
+            <circle cx="1242" cy="651" r="12"/><circle cx="921" cy="574" r="12"/>
+          </g>
+          <!-- antenna -->
+          <path d="M1092 248v-51" fill="none" stroke="#171533" stroke-linecap="round" stroke-width="12"/>
+          <path d="M1092 246v-49" fill="none" stroke="#91f3d0" stroke-linecap="round" stroke-width="7"/>
+          <circle cx="1092" cy="185" r="17" fill="#ffe66d" stroke="#171533" stroke-width="8"/>
+          <path d="M1142 267c14-26 39-41 69-42" fill="none" stroke="#171533" stroke-linecap="round" stroke-width="9"/>
+          <circle cx="1219" cy="224" r="12" fill="#ff829b" stroke="#171533" stroke-width="6"/>
+          <!-- friendly robot face -->
+          <path d="M1007 431c0-20 15-35 34-35 20 0 35 15 35 35v23h-69z" fill="#fff9e9" stroke="#171533" stroke-linejoin="round" stroke-width="8"/>
+          <path d="M1152 431c0-20 15-35 34-35 20 0 35 15 35 35v23h-69z" fill="#fff9e9" stroke="#171533" stroke-linejoin="round" stroke-width="8"/>
+          <ellipse cx="1040" cy="432" rx="9" ry="13" fill="#171533"/>
+          <ellipse cx="1186" cy="432" rx="9" ry="13" fill="#171533"/>
+          <path d="M1080 485c21 23 48 23 70-1" fill="none" stroke="#171533" stroke-linecap="round" stroke-width="9"/>
+          <path d="M990 479c14 10 30 10 43 2m192-3c14 8 29 8 42-1" fill="none" stroke="#ff829b" stroke-linecap="round" stroke-width="8"/>
+          <!-- mechanical cheeks and panel -->
+          <path d="M1034 531v43m34-43v43m101-43v43m34-43v43" fill="none" stroke="#171533" stroke-linecap="round" stroke-width="7"/>
+          <rect x="1067" y="557" width="91" height="55" rx="15" fill="#91f3d0" stroke="#171533" stroke-width="8" transform="rotate(-4 1112 584)"/>
+          <circle cx="1092" cy="584" r="8" fill="#171533"/>
+          <circle cx="1127" cy="581" r="8" fill="#ff829b" stroke="#171533" stroke-width="3"/>
+          <path d="M1071 651h85m-68 20h50" fill="none" stroke="#171533" stroke-linecap="round" stroke-width="8"/>
+          <!-- side gear -->
+          <path d="m1324 459 11-7 13 9 12-6 7 12 14 2 1 14 11 8-7 13 5 13-13 6-4 14-14-2-10 10-11-9-13 5-7-12-14-2v-14l-11-8 7-13-5-13 13-6 4-14z" fill="#91f3d0" stroke="#171533" stroke-linejoin="round" stroke-width="7"/>
+          <circle cx="1357" cy="491" r="17" fill="#171533"/>
+          <!-- cute floating satellite -->
+          <path d="M820 461c-9-23-8-46 5-69" fill="none" stroke="#171533" stroke-linecap="round" stroke-width="8"/>
+          <rect x="778" y="371" width="45" height="42" rx="10" fill="#ffe66d" stroke="#171533" stroke-width="7" transform="rotate(-12 800 392)"/>
+          <path d="m773 379-23-11m30 45-23 13m68-59 19-17m-13 71 24 8" fill="none" stroke="#ff829b" stroke-linecap="round" stroke-width="8"/>
+          <circle cx="797" cy="389" r="4" fill="#171533"/><circle cx="811" cy="386" r="4" fill="#171533"/>
+          <path d="M800 400q6 7 12-2" fill="none" stroke="#171533" stroke-linecap="round" stroke-width="3"/>
+        </g>
+
+        <!-- hand-drawn rocket -->
+        <g transform="translate(-40 164) rotate(79 586 493)">
+        <g class="rocket">
+          <g class="rocket-flame">
+            <path d="M539 574c-10 24-12 42-2 57 11-12 18-21 19-39 8 11 17 17 31 18-8-20-17-34-34-43z" fill="#ff829b" stroke="#171533" stroke-linejoin="round" stroke-width="7"/>
+            <path d="M551 583c-5 13-6 22-1 32 7-9 10-17 8-26" fill="#ffe66d"/>
+          </g>
+          <path d="M531 510c-1-76 25-132 57-166 35 35 57 93 55 168z" fill="#fff9e9" stroke="#171533" stroke-linejoin="round" stroke-width="10"/>
+          <path d="M539 487c-21 10-38 30-45 56 18-7 34-6 48 3" fill="#ff829b" stroke="#171533" stroke-linejoin="round" stroke-width="9"/>
+          <path d="M633 487c22 9 38 29 45 55-18-7-35-5-49 4" fill="#91f3d0" stroke="#171533" stroke-linejoin="round" stroke-width="9"/>
+          <path d="M551 421c10-35 22-58 37-77 17 21 29 46 39 78-22 15-51 16-76-1z" fill="#ff829b" stroke="#171533" stroke-linejoin="round" stroke-width="8"/>
+          <circle cx="586" cy="452" r="24" fill="#91f3d0" stroke="#171533" stroke-width="9"/>
+          <circle cx="586" cy="452" r="10" fill="#fff9e9"/>
+          <path d="M558 514c15 8 43 11 62 1" fill="none" stroke="#171533" stroke-linecap="round" stroke-width="7"/>
+          <path d="m562 529 10 1m33 0 10-1" stroke="#ff829b" stroke-linecap="round" stroke-width="6"/>
+          <path d="M566 356c-3-15 2-23 14-27m-13 27 3-13" fill="none" stroke="#fff9e9" stroke-linecap="round" stroke-width="4"/>
+        </g>
+        </g>
+
+        <!-- tiny doodle annotations -->
+        <g fill="#fff9e9" font-family="Trebuchet MS, sans-serif" font-size="16" font-weight="800">
+          <text x="716" y="540" transform="rotate(-11 716 540)">WHOOSH!</text>
+          <text x="1227" y="755" fill="#ffe66d" transform="rotate(7 1227 755)">HELLO, ALIEN!</text>
+        </g>
+        <path d="M740 551q18 5 28 17m-23-1 21-1" fill="none" stroke="#fff9e9" stroke-linecap="round" stroke-width="3"/>
+      </svg>
+
+      <div class="flight-note"><span>目的地</span><b>咔咔咯噠-999號外星基地</b><span>✦</span></div>
+    </section>
+  </main>
+  <script>
+    const page = document.getElementById("page");
+    const launchButton = document.getElementById("launch-button");
+    const rocket = document.querySelector(".rocket");
+    let launched = false;
+
+    rocket.addEventListener("animationend", (event) => {
+      if (event.animationName === "rocket-flight") {
+        window.location.href = "./home.html";
+      }
+    });
+
+    launchButton.addEventListener("click", () => {
+      if (launched) return;
+      launched = true;
+      page.classList.add("is-launched");
+      launchButton.disabled = true;
+      launchButton.setAttribute("aria-label", "火箭正在前往機械星球");
+    });
+  </script>
+</body>
+</html>

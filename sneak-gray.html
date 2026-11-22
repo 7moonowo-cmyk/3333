@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171533">
+  <title>偷窺小灰｜咔咔咯噠-999號外星基地</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: "Trebuchet MS", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      background: #171533;
+      color: #fff9e9;
+      --ink: #171533;
+      --cream: #fff9e9;
+      --yellow: #ffe66d;
+      --pink: #ff829b;
+      --mint: #91f3d0;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 75% 65%, #39345d 0, transparent 40%),
+        radial-gradient(ellipse at 13% 88%, #34294e 0, transparent 32%),
+        #171533;
+    }
+
+    .page {
+      position: relative;
+      isolation: isolate;
+      display: flex;
+      min-height: 100svh;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .page::before {
+      position: absolute;
+      z-index: 3;
+      inset: 14px;
+      border: 1px solid rgb(255 249 233 / 12%);
+      border-radius: 26px;
+      content: "";
+      pointer-events: none;
+    }
+
+    .topbar {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 32px clamp(30px, 6vw, 92px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--cream);
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      background: var(--yellow);
+      box-shadow: 2px 3px 0 var(--cream);
+      color: var(--ink);
+      font-size: 21px;
+      transform: rotate(-12deg);
+    }
+
+    .top-note {
+      padding: 9px 16px;
+      border: 1px solid rgb(255 249 233 / 35%);
+      border-radius: 999px;
+      color: #e8e4f2;
+      font-size: 20px;
+      letter-spacing: .08em;
+    }
+
+    .story {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex: 1;
+      align-items: center;
+      padding: 20px clamp(36px, 10vw, 150px) 90px;
+    }
+
+    .story-copy {
+      position: relative;
+      z-index: 1;
+      width: min(480px, 48vw);
+    }
+
+    .page.is-dialogue-open .story-copy { display: none; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 19px;
+      color: var(--mint);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: .18em;
+    }
+
+    .eyebrow::before {
+      width: 26px;
+      height: 2px;
+      background: var(--mint);
+      content: "";
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--yellow);
+      font-size: clamp(56px, 7.3vw, 96px);
+      font-weight: 1000;
+      letter-spacing: -.075em;
+      line-height: 1;
+      text-shadow: 4px 5px 0 rgb(0 0 0 / 15%), 3px 4px 0 #ec7190;
+    }
+
+    .story-text {
+      max-width: 440px;
+      margin: 24px 0 0;
+      color: #d3d0e2;
+      font-size: 23px;
+      line-height: 1.8;
+    }
+
+    .story-subtitle {
+      max-width: 440px;
+      margin: 24px 0 0;
+      color: #d3d0e2;
+      font-size: 23px;
+      line-height: 1.8;
+    }
+
+    .story-button {
+      min-height: 62px;
+      margin-top: 27px;
+      padding: 0 28px;
+      border: 2px solid var(--ink);
+      border-radius: 18px 22px 17px 21px;
+      background: var(--yellow);
+      box-shadow: 4px 5px 0 var(--cream), 6px 7px 0 var(--ink);
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+      font-size: 25px;
+      font-weight: 1000;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .story-button:hover {
+      background: #fff08e;
+      box-shadow: 2px 3px 0 var(--cream), 4px 5px 0 var(--ink);
+      transform: translate(2px, 2px) rotate(-1deg);
+    }
+
+    .story-button:focus-visible {
+      outline: 3px solid var(--mint);
+      outline-offset: 7px;
+    }
+
+    .gray-chicken {
+      position: absolute;
+      right: clamp(40px, 12vw, 180px);
+      bottom: 12%;
+      width: min(32vw, 350px);
+      height: auto;
+      filter: drop-shadow(0 12px 8px rgb(23 21 51 / 30%));
+    }
+
+    .ground {
+      position: absolute;
+      z-index: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 34%;
+      border-top: 9px solid var(--ink);
+      background:
+        repeating-linear-gradient(0deg, transparent 0 48px, #314256 49px 56px),
+        repeating-linear-gradient(90deg, transparent 0 170px, #314256 171px 178px),
+        linear-gradient(180deg, #8c9baa 0, #64798b 20%, #39495c 100%);
+    }
+
+    .ground::before {
+      position: absolute;
+      top: 8px;
+      right: 0;
+      left: 0;
+      height: 7px;
+      background: #c3cdd0;
+      content: "";
+    }
+
+    .page.is-departing .story-copy { display: none; }
+
+    .page.is-journeying .ground {
+      animation: ground-scroll .28s linear infinite;
+    }
+
+    .page.is-journeying .gray-chicken {
+      animation: chicken-run .22s ease-in-out infinite alternate;
+    }
+
+    .space-scene {
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      overflow: hidden;
+      background-color: #0c102b;
+      background-image:
+        radial-gradient(2px 2px at 12% 18%, #fff9e9 99%, transparent),
+        radial-gradient(2px 2px at 32% 71%, #91f3d0 99%, transparent),
+        radial-gradient(2px 2px at 58% 23%, #fff9e9 99%, transparent),
+        radial-gradient(2px 2px at 84% 61%, #ffe66d 99%, transparent),
+        radial-gradient(2px 2px at 72% 88%, #fff9e9 99%, transparent);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .7s ease;
+    }
+
+    .space-earth {
+      --earth-size: clamp(200px, 30vw, 360px);
+      position: absolute;
+      top: 8%;
+      left: 8%;
+      width: var(--earth-size);
+      height: auto;
+      filter: drop-shadow(0 0 28px rgb(75 176 242 / 42%));
+      opacity: 0;
+      transform: scale(.5);
+      transform-origin: center;
+    }
+
+    .flight-path {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .flight-path path {
+      fill: none;
+      stroke: var(--cream);
+      stroke-dasharray: 8 15;
+      stroke-linecap: round;
+      stroke-width: 3;
+      opacity: 0;
+    }
+
+    .destination-note {
+      position: absolute;
+      top: 43%;
+      left: 50%;
+      margin: 0;
+      color: var(--yellow);
+      font-size: clamp(21px, 3vw, 30px);
+      font-weight: 900;
+      letter-spacing: .12em;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+      transition: opacity .5s ease;
+    }
+
+    .rocket {
+      position: absolute;
+      z-index: 4;
+      right: 3%;
+      bottom: 13%;
+      width: min(220px, 24vw);
+      aspect-ratio: 3 / 5;
+      visibility: hidden;
+      opacity: 0;
+      transform-origin: center;
+    }
+
+    .rocket > svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .rocket-flame { transform-origin: center top; }
+
+    .rocket-passenger {
+      position: absolute;
+      top: 25%;
+      left: 34%;
+      width: 32%;
+      aspect-ratio: 1;
+      border: 3px solid var(--ink);
+      border-radius: 50%;
+      background: var(--mint);
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+
+    .launch-button {
+      position: fixed;
+      z-index: 6;
+      bottom: clamp(28px, 8vh, 64px);
+      left: 50%;
+      min-height: 62px;
+      padding: 0 28px;
+      border: 2px solid var(--ink);
+      border-radius: 18px 22px 17px 21px;
+      background: var(--yellow);
+      box-shadow: 4px 5px 0 var(--cream), 6px 7px 0 var(--ink);
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+      font-size: 25px;
+      font-weight: 1000;
+      transform: translateX(-50%);
+    }
+
+    .launch-button[hidden] { display: none; }
+
+    .launch-button:hover { background: #fff08e; }
+
+    .launch-button:focus-visible {
+      outline: 3px solid var(--mint);
+      outline-offset: 7px;
+    }
+
+    .found-panel {
+      position: absolute;
+      z-index: 5;
+      top: 50%;
+      left: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(30px, 7vw, 100px);
+      width: min(1120px, calc(100% - 96px));
+      transform: translate(-50%, -50%);
+    }
+
+    .found-panel[hidden] { display: none; }
+
+    .page.is-gray-found .found-panel { display: flex; }
+
+    .found-chicken {
+      display: block;
+      width: clamp(230px, 42vw, 500px);
+      max-height: 72svh;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 12px rgb(0 0 0 / 30%));
+    }
+
+    .found-details { max-width: 500px; }
+
+    .found-line {
+      max-width: 500px;
+      margin: 0;
+      color: var(--yellow);
+      font-size: clamp(24px, 3vw, 40px);
+      font-weight: 900;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+
+    .found-link {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--mint);
+      font-size: clamp(16px, 2vw, 22px);
+      font-weight: 800;
+      text-underline-offset: .2em;
+    }
+
+    .found-chat-link {
+      display: block;
+      width: fit-content;
+      margin-top: 14px;
+      padding: 14px 20px;
+      border: 2px solid var(--ink);
+      border-radius: 16px;
+      background: var(--yellow);
+      box-shadow: 3px 4px 0 var(--cream), 5px 6px 0 var(--ink);
+      color: var(--ink);
+      font-size: clamp(16px, 2vw, 20px);
+      font-weight: 900;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .found-chat-link:hover { background: #fff08e; }
+
+    .found-chat-link:focus-visible {
+      outline: 3px solid var(--mint);
+      outline-offset: 5px;
+    }
+
+    .found-link:focus-visible {
+      outline: 3px solid var(--yellow);
+      outline-offset: 5px;
+    }
+
+    .page.is-gray-found .space-earth,
+    .page.is-gray-found .flight-path,
+    .page.is-gray-found .destination-note,
+    .page.is-gray-found .rocket,
+    .page.is-gray-found .gray-chicken,
+    .page.is-gray-found .topbar,
+    .page.is-gray-found .story,
+    .page.is-gray-found .launch-button,
+    .page.is-gray-found::before { display: none; }
+
+    .page.is-boarding .rocket {
+      visibility: visible;
+      animation: rocket-arrive .55s ease-out both;
+    }
+
+    .page.is-ready-to-launch .rocket-passenger { opacity: 1; }
+
+    .page.is-launched .space-scene { animation: space-reveal 4.5s 1.8s ease-out both; }
+    .page.is-launched .space-earth {
+      animation:
+        earth-reveal 3.2s 2.4s cubic-bezier(.2, .8, .2, 1) both,
+        earth-glow 2.4s 5.6s ease-in-out infinite alternate;
+    }
+    .page.is-launched .flight-path path { opacity: .65; animation: flight-dash 1.2s linear infinite; }
+    .page.is-launched .destination-note { animation: destination-appear .7s 2.4s ease-out both; }
+    .page.is-launched .topbar,
+    .page.is-launched::before { opacity: 0; transition: opacity .5s ease; }
+    .page.is-launched .ground { animation: ground-fade 2.8s ease-in forwards; }
+    .page.is-launched .gray-chicken { visibility: hidden; }
+    .page.is-launched .rocket {
+      visibility: visible;
+      opacity: 1;
+      animation: rocket-flight 7s cubic-bezier(.42, 0, .35, 1) forwards;
+    }
+    .page.is-launched .rocket-passenger { opacity: 1; }
+    .page.is-launched .rocket-flame { animation: flame-flicker .12s ease-in-out infinite alternate; }
+
+    @keyframes ground-scroll {
+      to { background-position: 0 0, -356px 0, 0 0; }
+    }
+
+    @keyframes chicken-run {
+      from { transform: scaleX(1) translateY(0); }
+      to { transform: scaleX(1) translateY(-8px); }
+    }
+
+    @keyframes rocket-arrive {
+      from { opacity: 0; transform: translateY(30px) scale(.85); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes rocket-flight {
+      0% { transform: translate(0, 0) rotate(0) scale(1); }
+      12% { transform: translate(-2vw, -3vh) rotate(-4deg) scale(1.18); }
+      30%, 42% { transform: translate(-10vw, -5vh) rotate(-7deg) scale(1.75); }
+      57% { transform: translate(-8vw, -18vh) rotate(0) scale(1.3); }
+      72% { transform: translate(-7vw, -27vh) rotate(6deg) scale(1.05); }
+      86% { transform: translate(-7vw, -32vh) rotate(9deg) scale(1.25); }
+      100% { transform: translate(-8vw, -34vh) rotate(12deg) scale(1.4); }
+    }
+
+    @keyframes rocket-flight-mobile {
+      0% { transform: translate(0, 0) rotate(0) scale(1); }
+      12% { transform: translate(-6vw, -3vh) rotate(-4deg) scale(1.15); }
+      30%, 42% { transform: translate(-19vw, -4vh) rotate(-7deg) scale(1.65); }
+      57% { transform: translate(-13vw, -18vh) rotate(0) scale(1.25); }
+      72% { transform: translate(-13vw, -28vh) rotate(6deg) scale(1.05); }
+      86% { transform: translate(-13vw, -34vh) rotate(9deg) scale(1.2); }
+      100% { transform: translate(-14vw, -40vh) rotate(12deg) scale(1.3); }
+    }
+
+    @keyframes space-reveal { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes earth-reveal {
+      0% {
+        left: calc(100% - var(--earth-size) - 8vw);
+        top: 11%;
+        opacity: 0;
+        transform: scale(.5);
+      }
+      45% { left: 36%; top: 9%; opacity: 1; transform: scale(1.35); }
+      100% { left: 8%; top: 8%; opacity: 1; transform: scale(1.25); }
+    }
+    @keyframes destination-appear { to { opacity: 1; } }
+    @keyframes ground-fade {
+      0% { opacity: 1; transform: translateY(0); }
+      45% { opacity: .8; transform: translateY(8vh); }
+      100% { opacity: 0; transform: translateY(28vh); }
+    }
+
+    @keyframes flame-flicker {
+      from { transform: scaleY(.85) rotate(-2deg); }
+      to { transform: scaleY(1.12) rotate(2deg); }
+    }
+
+    @keyframes flight-dash { to { stroke-dashoffset: -92; } }
+
+    @keyframes earth-glow {
+      from { filter: drop-shadow(0 0 22px rgb(75 176 242 / 35%)); }
+      to { filter: drop-shadow(0 0 42px rgb(75 176 242 / 72%)); }
+    }
+
+    .page.is-launched .story-copy { display: none; }
+
+    .chicken-dialogue {
+      position: fixed;
+      z-index: 5;
+      top: clamp(58px, 9vh, 88px);
+      left: 50%;
+      width: min(680px, calc(100% - 36px));
+      padding: clamp(19px, 3vw, 30px);
+      border: 2px solid rgb(145 243 208 / 80%);
+      border-radius: 24px;
+      background: rgb(23 21 51 / 94%);
+      box-shadow: 0 12px 40px rgb(0 0 0 / 35%), 5px 6px 0 rgb(255 249 233 / 75%);
+      color: var(--cream);
+      transform: translateX(-50%);
+      backdrop-filter: blur(12px);
+      animation: dialogue-appear .35s ease-out both;
+    }
+
+    .chicken-dialogue[hidden] { display: none; }
+
+    .chicken-dialogue::before {
+      position: absolute;
+      bottom: -11px;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      border-right: 2px solid var(--mint);
+      border-bottom: 2px solid var(--mint);
+      content: "";
+      transform: translateX(-50%) rotate(45deg);
+    }
+
+    .dialogue-speaker {
+      margin: 0 0 7px;
+      color: var(--mint);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .14em;
+    }
+
+    .dialogue-line {
+      min-height: 1.5em;
+      margin: 0;
+      font-size: clamp(21px, 3.5vw, 29px);
+      font-weight: 900;
+      line-height: 1.45;
+    }
+
+    .dialogue-next {
+      display: block;
+      width: 100%;
+      min-height: 48px;
+      margin-top: 13px;
+      padding: 9px 16px;
+      border: 2px solid var(--yellow);
+      border-radius: 14px;
+      background: #4a466b;
+      color: var(--cream);
+      cursor: pointer;
+      font: inherit;
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .dialogue-next:hover { background: #5a547a; }
+
+    .dialogue-next:focus-visible {
+      outline: 3px solid var(--yellow);
+      outline-offset: 3px;
+    }
+
+    @keyframes dialogue-appear {
+      from { opacity: 0; translate: 0 12px; }
+      to { opacity: 1; translate: 0 0; }
+    }
+
+    @media (max-width: 760px) {
+      .page::before { inset: 8px; border-radius: 19px; }
+      .topbar { padding: 24px 26px; }
+      .brand { font-size: 18px; }
+      .brand-mark { width: 33px; height: 33px; font-size: 18px; }
+      .top-note { padding: 8px 11px; font-size: 16px; }
+      .story {
+        align-items: flex-start;
+        padding: 38px 30px 200px;
+      }
+      .story-copy { width: 100%; }
+      .eyebrow { margin-bottom: 14px; font-size: 17px; }
+      h1 { font-size: clamp(54px, 13vw, 78px); }
+      .story-subtitle { margin-top: 18px; font-size: 20px; }
+      .story-text { margin-top: 18px; font-size: 20px; }
+      .story-button { min-height: 58px; margin-top: 21px; font-size: 22px; }
+      .gray-chicken {
+        right: 50%;
+        bottom: 0;
+        width: min(50vw, 220px);
+        transform: translateX(50%);
+      }
+      .rocket {
+        right: 3%;
+        bottom: 13%;
+        width: min(170px, 46vw);
+      }
+      .space-earth {
+        --earth-size: clamp(180px, 52vw, 270px);
+      }
+      .page.is-launched .rocket { animation-name: rocket-flight-mobile; }
+      .launch-button { bottom: 24px; min-height: 58px; font-size: 22px; }
+      .found-panel {
+        width: calc(100% - 48px);
+        flex-direction: column;
+        gap: 18px;
+        text-align: center;
+      }
+      .found-chicken { width: min(42vh, 60vw); max-height: 46svh; }
+      .found-line { font-size: clamp(21px, 5.5vw, 28px); }
+      .chicken-dialogue {
+        top: 64px;
+        width: calc(100% - 28px);
+        border-radius: 19px;
+      }
+      .ground { height: 32%; }
+    }
+
+    @media (max-width: 390px) {
+      .topbar { padding-inline: 21px; }
+      .story { padding-inline: 25px; }
+      .top-note { letter-spacing: 0; }
+    }
+
+    @media (forced-colors: active) {
+      body { forced-color-adjust: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="space-scene" aria-hidden="true">
+      <svg class="flight-path" viewBox="0 0 1440 900" preserveAspectRatio="none">
+        <path d="M1150 790C1190 620 1060 420 1085 205"/>
+      </svg>
+      <svg class="space-earth" viewBox="0 0 220 220" role="img" aria-label="地球">
+        <defs>
+          <clipPath id="earth-clip"><circle cx="110" cy="110" r="101"/></clipPath>
+          <linearGradient id="earth-sea" x1="0" y1="0" x2="1" y2="1">
+            <stop stop-color="#75d9f5"/>
+            <stop offset="1" stop-color="#2877c7"/>
+          </linearGradient>
+        </defs>
+        <circle cx="110" cy="110" r="104" fill="#171533"/>
+        <g clip-path="url(#earth-clip)">
+          <circle cx="110" cy="110" r="101" fill="url(#earth-sea)"/>
+          <path d="m27 67 18-21 25-8 12 13 22-4 9 15-12 11 5 17-17 8-7 20-20 1-13-15-22 4-13-18zm91-42 26 6 13 18-14 10-19-7-13-15zm15 73 18-10 23 10 5 21-14 10-5 24-19 6-14-17-20-5-7-19zM42 145l22-8 15 13-7 18-20 15-16-16zm57 35 18-19 24 6 11 17-15 21-30 4-15-14z" fill="#91f3d0"/>
+          <path d="M25 92c34 15 54 18 80 13s47-2 86 13" fill="none" stroke="#fff9e9" stroke-linecap="round" stroke-width="5" opacity=".28"/>
+        </g>
+        <circle cx="110" cy="110" r="101" fill="none" stroke="#fff9e9" stroke-width="4"/>
+      </svg>
+      <p class="destination-note">目的地：地球</p>
+    </div>
+    <header class="topbar">
+      <a class="brand" href="./home.html" aria-label="回到基地">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        <span>回到基地</span>
+      </a>
+      <span class="top-note">✷　偷窺小灰　✷</span>
+    </header>
+
+    <section class="story" aria-labelledby="story-title">
+      <div class="ground" aria-hidden="true"></div>
+      <div class="story-copy">
+        <div class="eyebrow">BASE LOG　／　外星雞檔案</div>
+        <h1 id="story-title">小灰的故事</h1>
+        <p class="story-subtitle">讓我們看看為什麼他想去地球</p>
+        <button class="story-button" id="show-story" type="button" aria-controls="gray-dialogue" aria-expanded="false">看!</button>
+      </div>
+      <img class="gray-chicken" src="./灰雞正面.png" alt="站在基地上的灰色外星雞小灰">
+      <div class="rocket" id="rocket" aria-hidden="true">
+        <svg viewBox="0 0 180 300">
+          <g class="rocket-flame">
+            <path d="M74 230c-14 23-17 46-5 67 11-10 18-22 20-38 10 15 22 22 39 22-8-24-19-42-38-54z" fill="#ff829b" stroke="#171533" stroke-linejoin="round" stroke-width="7"/>
+            <path d="M88 240c-6 15-7 27-1 39 8-11 11-20 9-33" fill="#ffe66d"/>
+          </g>
+          <path d="M90 12C54 50 42 100 44 219h92C138 100 126 50 90 12z" fill="#fff9e9" stroke="#171533" stroke-linejoin="round" stroke-width="9"/>
+          <path d="M48 174c-22 12-34 34-38 62 18-9 33-9 49 1l8-51zm84 0c22 12 34 34 38 62-18-9-33-9-49 1l-8-51z" fill="#91f3d0" stroke="#171533" stroke-linejoin="round" stroke-width="8"/>
+          <path d="M59 197h62v31H59z" fill="#ff829b" stroke="#171533" stroke-width="7"/>
+          <circle cx="90" cy="108" r="31" fill="#91f3d0" stroke="#171533" stroke-width="9"/>
+          <circle cx="90" cy="108" r="13" fill="#fff9e9"/>
+          <path d="M66 70c7-21 15-37 24-49 10 13 18 29 24 49-14 9-34 9-48 0z" fill="#ff829b" stroke="#171533" stroke-width="7"/>
+        </svg>
+        <img class="rocket-passenger" src="./灰雞正面.png" alt="">
+      </div>
+    </section>
+    <section class="found-panel" id="found-panel" aria-label="找到小灰" hidden>
+      <img class="found-chicken" src="./灰雞正面.png" alt="小灰的正面照片">
+      <div class="found-details">
+        <p class="found-line">小灰的line：@462kbfha</p>
+        <a class="found-link" href="https://line.me/R/ti/p/@462kbfha" target="_blank" rel="noopener noreferrer">前往小灰的 LINE</a>
+        <a class="found-chat-link" href="./gray-chat.html">在宇宙對講機連絡小灰</a>
+      </div>
+    </section>
+    <section class="chicken-dialogue" id="gray-dialogue" aria-label="小灰的對話" hidden>
+      <p class="dialogue-speaker">小灰</p>
+      <p class="dialogue-line" id="gray-dialogue-line" aria-live="polite"></p>
+      <button class="dialogue-next" id="gray-dialogue-next" type="button">點擊繼續</button>
+    </section>
+    <button class="launch-button" id="launch-button" type="button" hidden>出發</button>
+    <button class="launch-button" id="find-gray-button" type="button" hidden>找到小灰</button>
+  </main>
+  <script>
+    const page = document.querySelector(".page");
+    const showStoryButton = document.getElementById("show-story");
+    const dialogue = document.getElementById("gray-dialogue");
+    const dialogueLine = document.getElementById("gray-dialogue-line");
+    const dialogueNext = document.getElementById("gray-dialogue-next");
+    const grayChicken = document.querySelector(".gray-chicken");
+    const launchButton = document.getElementById("launch-button");
+    const rocket = document.getElementById("rocket");
+    const findGrayButton = document.getElementById("find-gray-button");
+    const foundPanel = document.getElementById("found-panel");
+    const grayLines = [
+      "好煩咕，斃業論文又被雞教授打槍，",
+      "他叫我去地球實地走訪一次，再把論文重寫，",
+      "全班都知道我快不能斃業了好丟臉，唉!"
+    ];
+    const departureLine = "咕咕咕，不過也沒有辦法了，去吧去吧";
+    let lineIndex = 0;
+    let dialogueMode = "story";
+    let walkTimeoutId = null;
+
+    const sideChickenImage = new Image();
+    sideChickenImage.src = "./灰雞側邊.png";
+
+    showStoryButton.addEventListener("click", () => {
+      if (walkTimeoutId !== null) {
+        window.clearTimeout(walkTimeoutId);
+        walkTimeoutId = null;
+      }
+
+      dialogueMode = showStoryButton.textContent.trim() === "再看看" ? "departure" : "story";
+      lineIndex = 0;
+      dialogueLine.textContent = dialogueMode === "departure" ? departureLine : grayLines[lineIndex];
+      dialogueNext.textContent = dialogueMode === "departure" ? "出發" : "點擊繼續";
+      dialogue.hidden = false;
+      page.classList.add("is-dialogue-open");
+      showStoryButton.setAttribute("aria-expanded", "true");
+      dialogueNext.focus({ preventScroll: true });
+    });
+
+    dialogueNext.addEventListener("click", () => {
+      if (dialogueMode === "story" && lineIndex < grayLines.length - 1) {
+        lineIndex += 1;
+        dialogueLine.textContent = grayLines[lineIndex];
+        dialogueNext.textContent = lineIndex < grayLines.length - 1 ? "點擊繼續" : "回到故事";
+        return;
+      }
+
+      dialogue.hidden = true;
+      page.classList.remove("is-dialogue-open");
+      showStoryButton.setAttribute("aria-expanded", "false");
+      if (dialogueMode === "departure") {
+        dialogueMode = "story";
+        startDepartureJourney();
+      } else {
+        showStoryButton.focus({ preventScroll: true });
+        walkTimeoutId = window.setTimeout(() => {
+          walkTimeoutId = null;
+          walkGrayChicken();
+        }, 3000);
+      }
+    });
+
+    async function walkGrayChicken() {
+      const story = document.querySelector(".story");
+      const storyRect = story.getBoundingClientRect();
+      const chickenRect = grayChicken.getBoundingClientRect();
+      const startingLeft = chickenRect.left - storyRect.left;
+      const chickenWidth = chickenRect.width;
+      const leftEdge = 16;
+      const rightEdge = Math.max(leftEdge, storyRect.width - chickenWidth - 16);
+      const route = [
+        { left: leftEdge, direction: -1 },
+        { left: rightEdge, direction: 1 },
+        { left: leftEdge, direction: -1 },
+        { left: rightEdge, direction: 1 },
+        { left: startingLeft, direction: 1 }
+      ];
+      let currentLeft = startingLeft;
+
+      showStoryButton.disabled = true;
+      grayChicken.src = sideChickenImage.src;
+      grayChicken.alt = "正在基地快速走動的灰色外星雞小灰";
+      grayChicken.style.right = "auto";
+      grayChicken.style.left = `${startingLeft}px`;
+      grayChicken.style.transform = "scaleX(1)";
+
+      for (const stop of route) {
+        grayChicken.style.transform = `scaleX(${stop.direction})`;
+        const distance = Math.abs(stop.left - currentLeft);
+        const animation = grayChicken.animate(
+          [{ left: `${currentLeft}px` }, { left: `${stop.left}px` }],
+          { duration: Math.max(220, distance / 1.6), easing: "linear" }
+        );
+        await animation.finished;
+        grayChicken.style.left = `${stop.left}px`;
+        animation.cancel();
+        currentLeft = stop.left;
+      }
+
+      grayChicken.style.left = "";
+      grayChicken.style.right = "";
+      grayChicken.style.transform = "";
+      grayChicken.src = "./灰雞正面.png";
+      grayChicken.alt = "站在基地上的灰色外星雞小灰";
+      showStoryButton.textContent = "再看看";
+      showStoryButton.disabled = false;
+    }
+
+    async function startDepartureJourney() {
+      const story = document.querySelector(".story");
+      const storyRect = story.getBoundingClientRect();
+      const chickenRect = grayChicken.getBoundingClientRect();
+      const startingLeft = chickenRect.left - storyRect.left;
+      const rightEdge = Math.max(startingLeft, storyRect.width - chickenRect.width - 16);
+
+      showStoryButton.disabled = true;
+      grayChicken.src = sideChickenImage.src;
+      grayChicken.alt = "正在前往火箭的灰色外星雞小灰";
+      grayChicken.style.right = "auto";
+      grayChicken.style.left = `${startingLeft}px`;
+      grayChicken.style.transform = "scaleX(1)";
+      page.classList.add("is-departing", "is-journeying");
+
+      const journey = grayChicken.animate(
+        [{ left: `${startingLeft}px` }, { left: `${rightEdge}px` }],
+        { duration: 7000, easing: "linear" }
+      );
+      await journey.finished;
+      grayChicken.style.left = `${rightEdge}px`;
+      journey.cancel();
+      page.classList.remove("is-journeying");
+      page.classList.add("is-boarding");
+
+      await new Promise((resolve) => window.setTimeout(resolve, 550));
+      const rocketRect = rocket.getBoundingClientRect();
+      const currentChickenRect = grayChicken.getBoundingClientRect();
+      const currentLeft = currentChickenRect.left - storyRect.left;
+      const targetWidth = Math.min(rocketRect.width * .48, currentChickenRect.width);
+      const targetLeft = rocketRect.left - storyRect.left + (rocketRect.width - targetWidth) / 2;
+      const boarding = grayChicken.animate(
+        [
+          { left: `${currentLeft}px`, width: `${currentChickenRect.width}px`, opacity: 1 },
+          { left: `${targetLeft}px`, width: `${targetWidth}px`, opacity: 0 }
+        ],
+        { duration: 900, easing: "ease-in" }
+      );
+      await boarding.finished;
+      grayChicken.style.left = `${targetLeft}px`;
+      grayChicken.style.width = `${targetWidth}px`;
+      grayChicken.style.opacity = "0";
+      boarding.cancel();
+
+      page.classList.add("is-ready-to-launch");
+      launchButton.hidden = false;
+      launchButton.focus({ preventScroll: true });
+    }
+
+    launchButton.addEventListener("click", () => {
+      launchButton.hidden = true;
+      page.classList.remove("is-ready-to-launch", "is-boarding");
+      page.classList.add("is-launched");
+    });
+
+    rocket.addEventListener("animationend", (event) => {
+      if (!page.classList.contains("is-launched")) return;
+      if (event.animationName !== "rocket-flight" && event.animationName !== "rocket-flight-mobile") return;
+      findGrayButton.hidden = false;
+      findGrayButton.focus({ preventScroll: true });
+    });
+
+    findGrayButton.addEventListener("click", () => {
+      findGrayButton.hidden = true;
+      foundPanel.hidden = false;
+      page.classList.add("is-gray-found");
+    });
+  </script>
+</body>
+</html>
